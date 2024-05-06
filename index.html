@@ -1,11 +1,65 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Heart Emoji with JPEG Image</title>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Marriage Proposal</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f0f0;
+        }
+        .container {
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1, p {
+            text-align: center;
+        }
+        .proposal-message {
+            margin-top: 30px;
+            text-align: left;
+        }
+    </style>
 </head>
 <body>
-    <h1>I am in madly love with you, Please marry me</h1>
-    <img src="heart.jpg" alt="Heart Image">
+    <div class="container">
+        <h1>Marriage Proposal</h1>
+        <form id="proposal-form">
+            <label for="your-name">Your Name:</label>
+            <input type="text" id="your-name" name="your-name" required><br><br>
+            <label for="partner-name">Partner's Name:</label>
+            <input type="text" id="partner-name" name="partner-name" required><br><br>
+            <button type="submit">Propose</button>
+        </form>
+        <div class="proposal-message" id="proposal-message" style="display: none;">
+            <p id="message-text"></p>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById("proposal-form").addEventListener("submit", function(event) {
+            event.preventDefault();
+            var yourName = document.getElementById("your-name").value;
+            var partnerName = document.getElementById("partner-name").value;
+            var messageContainer = document.getElementById("proposal-message");
+            var messageText = document.getElementById("message-text");
+            var message = `Dear ${partnerName},<br><br>`;
+            message += "I hope this message finds you well. I wanted to take a moment to express the depths of my feelings for you, " + partnerName + ".<br>";
+            message += "From the first moment we met, I knew there was something special about you, and as time passed, that feeling has only grown stronger.<br>";
+            message += "Your kindness, your warmth, and your love have enriched my life in ways I never thought possible.<br>";
+            message += `I cannot imagine a future without you by my side, ${partnerName}. You are my rock, my confidant, and my greatest joy.<br>`;
+            message += "So, with all the love in my heart, I ask:<br>";
+            message += `<strong>${partnerName}, will you marry me?</strong><br><br>`;
+            messageContainer.style.display = "block";
+            messageText.innerHTML = message;
+        });
+    </script>
 </body>
 </html>
