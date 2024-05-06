@@ -1,24 +1,37 @@
 package main
 
 import (
-	"log"
+	"fmt"
 	"net/http"
+	"os"
 )
 
 func main() {
+	// Define the directory containing the HTML file
+	dir := "./"
+
+	// Define the file name
+	file := "index.html"
+
+	// Create a file server handler
+	fs := http.FileServer(http.Dir(dir))
+
+	// Handle requests to the root URL ("/") by serving the HTML file
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
-		if r.URL.Path == "/" {
-			http.ServeFile(w, r, "index.html")
-		} else {
-			http.NotFound(w, r)
-		}
+		http.ServeFile(w, r, file)
 	})
 
-	// Serve the JPEG image
-	http.HandleFunc("/heart.jpg", func(w http.ResponseWriter, r *http.Request) {
-		http.ServeFile(w, r, "heart.jpg")
-	})
+	// Handle requests to other URLs by serving static files
+	http.Handle("/static/", http.StripPrefix("/static/", fs))
 
-	log.Println("Server started at :8080")
-	log.Fatal(http.ListenAndServe(":8080", nil))
+	// Define the port to listen on
+	port := ":8080"
+
+	// Start the web server
+	fmt.Printf("Server listening on port %s...\n", port)
+	err := http.ListenAndServe(port, nil)
+	if err != nil {
+		fmt.Println("Error:", err)
+		os.Exit(1)
+	}
 }
